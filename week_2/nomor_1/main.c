@@ -14,8 +14,8 @@ int main () {
     menit = (detik % 3600) / 60;
     detik = (detik % 60);
     printf("==============================\n");
-    printf("hasil konversi %d jam %d menit %d detik", jam, menit, detik);
+    printf("hasil konversi %d jam %d menit %d detik\n", jam, menit, detik);
     printf("==============================\n");
-    
+
     return 0;
 }
