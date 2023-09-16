@@ -48,8 +48,8 @@ int main()
     printf("==============================\n");
 
     printf("Input jumlah mahasiswa: ");
-    scanf("%d", &limit);
-    if (isdigit(limit))
+
+    if (scanf("%d", &limit) != 1)
     {
         printf("Input must be a valid integer\n");
         return 1; // Exit the program with an error code
