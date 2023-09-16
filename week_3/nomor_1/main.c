@@ -2,6 +2,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+#include <conio.h>
 
 // Fungsi untuk memeriksa apakah string adalah double
 bool isDouble(const char *str)
@@ -49,31 +51,56 @@ double calculateHour(double hour)
     }
 }
 
+void clearScreen()
+{
+#ifdef _WIN32
+    system("cls"); // For Windows
+#else
+    system("clear"); // For Unix/Linux and macOS
+#endif
+}
+
 int main(void)
 {
     char input[100];
     double hour;
+    char response[10];
 
-    printf("Masukkan bilangan pecahan: ");
-    scanf("%s", input);
-
-    if (isDouble(input))
+    do
     {
-        hour = atof(input); // Konversi input menjadi double
+        printf("==============================\n");
+        printf("            Group 6           \n");
+        printf("==============================\n");
+        printf("======= Program Warnet =======\n");
+        printf("==============================\n");
 
-        if (hour <= 0)
+        printf("Masukkan jumlah jam: ");
+        scanf("%s", input);
+
+        if (isDouble(input))
         {
-            printf("Input tidak boleh kurang dari 0\n");
+            hour = atof(input); // Konversi input menjadi double
+
+            if (hour <= 0)
+            {
+                printf("Input tidak boleh kurang dari 0\n");
+            }
+            else
+            {
+                printf("%.2lf\n", calculateHour(hour));
+            }
         }
         else
         {
-            printf("%lf\n", calculateHour(hour));
+            printf("Input bukan angka.\n");
         }
-    }
-    else
-    {
-        printf("Input bukan bilangan pecahan.\n");
-    }
+
+        printf("Apakah Anda ingin melakukan input lagi? (y/n): ");
+        scanf("%s", response);
+
+        clearScreen();
+
+    } while (strcmp(response, "y") == 0);
 
     return 0;
 }
