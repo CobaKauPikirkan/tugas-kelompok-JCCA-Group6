@@ -1,106 +1,133 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-#include <conio.h>
-
-// Fungsi untuk memeriksa apakah string adalah double
-bool isDouble(const char *str)
-{
-    // Coba mengonversi string menjadi double
-    char *endptr;
-    strtod(str, &endptr);
-
-    // Jika endptr sama dengan str, artinya string tidak valid sebagai double
-    return *endptr == '\0';
-}
-
-double calculateDiscount(double amount, double discount)
-{
-    double const result = amount - (amount * discount);
-
-    return result;
-}
-
-double calculateHour(double hour)
-{
-    double pricePerHour = 10000;
-
-    double amount = hour * pricePerHour;
-
-    if (hour > 4 && hour <= 6)
-    {
-        return calculateDiscount(amount, 0.10);
-    }
-    else if (hour > 6 && hour <= 8)
-    {
-        return calculateDiscount(amount, 0.15);
-    }
-    else if (hour > 8 && hour <= 10)
-    {
-        return calculateDiscount(amount, 0.20);
-    }
-    else if (hour > 10)
-    {
-        return calculateDiscount(amount, 0.25);
-    }
-    else
-    {
-        return amount;
-    }
-}
+#include <stdlib.h>
+#include <locale.h>
 
 void clearScreen()
 {
-#ifdef _WIN32
-    system("cls"); // For Windows
-#else
-    system("clear"); // For Unix/Linux and macOS
-#endif
+    system("cls");   // Clear screen on Windows and Unix
+    system("clear"); // Clear screen on Linux
+}
+
+int strtoint(char *string)
+{
+    // Check if the string is empty.
+    if (!string || !*string)
+    {
+        return 0;
+    }
+
+    // Check if the string contains any whitespace characters.
+    for (int i = 0; i < strlen(string); i++)
+    {
+        if (isspace(string[i]))
+        {
+            return 0;
+        }
+    }
+
+    // Check if the string contains any characters other than numbers.
+    for (int i = 0; i < strlen(string); i++)
+    {
+        if (!isdigit(string[i]))
+        {
+            return 0;
+        }
+    }
+
+    // Try to convert the string to an int.
+    int int_value;
+    if (sscanf(string, "%d", &int_value) != 1)
+    {
+        return 0;
+    }
+
+    // Return the int value.
+    return int_value;
+}
+
+double calculateBill(int hour, double price)
+{
+    return price * hour;
+}
+
+double calculateDiscount(int hour, double bill)
+{
+    double sale = 0;
+
+    // Checking playing hour for decide the discount
+    if (hour > 4)
+    {
+        sale = bill * 0.10;
+    }
+
+    if (hour > 6)
+    {
+        sale = bill * 0.15;
+    }
+
+    if (hour > 8)
+    {
+        sale = bill * 0.20;
+    }
+
+    if (hour > 10)
+    {
+        sale = bill * 0.25;
+    }
+
+    return sale;
 }
 
 int main(void)
 {
-    char input[100];
-    double hour;
-    char response[10];
+    char input[255];
+    double pricePerHour = 10000;
+    int playingHour;
+    double bill = 0;
+    double discount = 0;
+    double totalBill = 0;
 
     do
     {
-        printf("==============================\n");
-        printf("            Group 6           \n");
-        printf("==============================\n");
-        printf("======= Program Warnet =======\n");
-        printf("==============================\n");
+        printf("Masukan jumlah waktu bermain (jam): ");
+        fgets(input, sizeof(input), stdin);
 
-        printf("Masukkan jumlah jam: ");
-        scanf("%s", input);
+        // Remove the newline character from the end of the string.
+        input[strlen(input) - 1] = '\0';
 
-        if (isDouble(input))
+        // Convert input to integer
+        playingHour = strtoint(input);
+
+        // Print invalid message
+        if (playingHour == 0)
         {
-            hour = atof(input); // Konversi input menjadi double
-
-            if (hour <= 0)
-            {
-                printf("Input tidak boleh kurang dari 0\n");
-            }
-            else
-            {
-                printf("%.2lf\n", calculateHour(hour));
-            }
+            printf("Input tidak valid\n\n");
         }
         else
         {
-            printf("Input bukan angka.\n");
+            // Calculate the bill
+            bill = calculateBill(playingHour, pricePerHour);
+            // Calculate the discount
+            discount = calculateDiscount(playingHour, bill);
+            // Calculate final bill
+            totalBill = bill - discount;
         }
+    } while (playingHour == 0); // Looping while playing hour is not valid
 
-        printf("Apakah Anda ingin melakukan input lagi? (y/n): ");
-        scanf("%s", response);
+    clearScreen();
 
-        clearScreen();
+    setlocale(LC_NUMERIC, ""); // Set local formatting
 
-    } while (strcmp(response, "y") == 0);
+    printf("Waktu bermain anda adalah %d jam\n", playingHour);
+    printf("Harga yang harus dibayar: Rp.%'.2lf\n", bill);
 
-    return 0;
+    // Display discount if possible
+    if (discount > 0)
+    {
+        printf("Potongan harga: Rp.%'.2lf\n", discount);
+    }
+
+    printf("Total yang harus dibayar: Rp.%'.2lf\n", totalBill);
 }
