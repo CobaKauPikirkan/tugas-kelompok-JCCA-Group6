@@ -173,6 +173,11 @@ int main(void)
 
     // Array of student scores
     double *avgStudentScores = calloc(10, sizeof(double));
+    printf("==============================\n");
+    printf("            Group 6           \n");
+    printf("==============================\n");
+    printf("  Program perhitungan nilai   \n");
+    printf("==============================\n");
 
     do
     {
@@ -250,11 +255,11 @@ int main(void)
                         quizScore = strtodoub(inputQuizScore);
 
                         // Check validation if false
-                        if (quizScore == 0)
+                        if (quizScore == 0 || quizScore > 100)
                         {
                             printf("Nilai tidak valid. Mohon untuk input angka\n\n");
                         }
-                    } while (quizScore == 0);
+                    } while (quizScore == 0 || quizScore > 100);
 
                     // Input assignment score
                     do
@@ -268,11 +273,11 @@ int main(void)
                         assignmentScore = strtodoub(inputAssignmentScore);
 
                         // Check validation if false
-                        if (assignmentScore == 0)
+                        if (assignmentScore == 0 || assignmentScore > 100)
                         {
                             printf("Nilai tidak valid. Mohon untuk input angka\n\n");
                         }
-                    } while (assignmentScore == 0);
+                    } while (assignmentScore == 0 || assignmentScore > 100);
 
                     // Input attendance score
                     do
@@ -286,11 +291,11 @@ int main(void)
                         attendanceScore = strtodoub(inputAttendanceScore);
 
                         // Check validation if false
-                        if (attendanceScore == 0)
+                        if (attendanceScore == 0 || attendanceScore > 100)
                         {
                             printf("Nilai tidak valid. Mohon untuk input angka\n\n");
                         }
-                    } while (attendanceScore == 0);
+                    } while (attendanceScore == 0 || attendanceScore > 100);
 
                     // Input practice score
                     do
@@ -304,11 +309,11 @@ int main(void)
                         practiceScore = strtodoub(inputPracticeScore);
 
                         // Check validation if false
-                        if (practiceScore == 0)
+                        if (practiceScore == 0 || practiceScore > 100)
                         {
                             printf("Nilai tidak valid. Mohon untuk input angka\n\n");
                         }
-                    } while (practiceScore == 0);
+                    } while (practiceScore == 0 || practiceScore > 100);
 
                     // Input exam score
                     do
@@ -322,11 +327,11 @@ int main(void)
                         examScore = strtodoub(inputExamScore);
 
                         // Check validation if false
-                        if (examScore == 0)
+                        if (examScore == 0 || examScore > 100)
                         {
                             printf("Nilai tidak valid. Mohon untuk input angka\n\n");
                         }
-                    } while (examScore == 0);
+                    } while (examScore == 0 || examScore > 100);
 
                     // Store data to struct
                     strcpy(students[i].fullname, inputFullname);
@@ -338,6 +343,11 @@ int main(void)
 
                     clearScreen();
                 }
+                printf("==============================\n");
+                printf("            Group 6           \n");
+                printf("==============================\n");
+                printf("  Program perhitungan nilai   \n");
+                printf("==============================\n");
 
                 printf("Mahasiswa\n\n");
 
@@ -394,7 +404,8 @@ int main(void)
 
     // Print average all of student
     printf(
-        "Nilai rata - rata dari %d mahasiswa adalah: %.2f",
+        "Nilai rata - rata dari %d mahasiswa adalah: %.2f \n",
         numOfStudent,
         average(avgStudentScores, sizeof(avgStudentScores)));
+    printf("==============================\n");
 }

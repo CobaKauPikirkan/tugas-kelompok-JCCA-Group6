@@ -89,6 +89,12 @@ int main(void)
     double discount = 0;
     double totalBill = 0;
 
+    printf("==============================\n");
+    printf("            Group 6           \n");
+    printf("==============================\n");
+    printf("======= Program Warnet =======\n");
+    printf("==============================\n");
+
     do
     {
         printf("Masukan jumlah waktu bermain (jam): ");
@@ -119,15 +125,22 @@ int main(void)
     clearScreen();
 
     setlocale(LC_NUMERIC, ""); // Set local formatting
+    printf("==============================\n");
+    printf("            Group 6           \n");
+    printf("==============================\n");
+    printf("======= Program Warnet =======\n");
+    printf("==============================\n");
+    printf("\n");
 
     printf("Waktu bermain anda adalah %d jam\n", playingHour);
-    printf("Harga yang harus dibayar: Rp.%'.2lf\n", bill);
+    printf("Harga yang harus dibayar: Rp.%.2lf\n", bill);
 
     // Display discount if possible
     if (discount > 0)
     {
-        printf("Potongan harga: Rp.%'.2lf\n", discount);
+        printf("Potongan harga: Rp.%.2lf\n", discount);
     }
 
-    printf("Total yang harus dibayar: Rp.%'.2lf\n", totalBill);
+    printf("Total yang harus dibayar: Rp.%.2lf\n", totalBill);
+    printf("==============================\n");
 }
