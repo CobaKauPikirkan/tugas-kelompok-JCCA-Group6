@@ -159,7 +159,7 @@ int main()
     //         printf("Tidak valid");
 
     //         continueOrNo(&lanjut);
-    //     } paskw
+    //     } 
     // }
 
     return 0;
