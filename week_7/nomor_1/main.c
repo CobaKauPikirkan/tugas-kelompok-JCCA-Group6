@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+void clearScreen()
+{
+    system("cls");   // Clear screen on Windows and Unix
+    system("clear"); // Clear screen on Linux
+}
+
 double strtodoub(const char *string)
 {
     // Check if the string is empty.
@@ -41,126 +47,89 @@ double strtodoub(const char *string)
     return double_value;
 }
 
-int strtoint(char *string)
+void perhitunganTransaksi()
 {
-    // Check if the string is empty.
-    if (!string || !*string)
+    char input[255];
+    double jumlahTransaksi;
+    int jumlahCoupon = 0;
+    double discount = 0;
+    double totalBayar;
+
+    getchar();
+
+    printf("Masukkan total pembelian: ");
+    fgets(input, sizeof(input), stdin);
+
+    // Remove the newline character from the end of the string.
+    input[strlen(input) - 1] = '\0';
+
+    jumlahTransaksi = strtodoub(input);
+
+    if (jumlahTransaksi == 0)
     {
-        return 0;
+        printf("input tidak valid \n");
+        return;
     }
 
-    // Check if the string contains any whitespace characters.
-    for (int i = 0; i < strlen(string); i++)
+    if (jumlahTransaksi >= 100000)
     {
-        if (isspace(string[i]))
-        {
-            return 0;
-        }
+        jumlahCoupon = jumlahTransaksi / 100000;
+        discount = jumlahTransaksi * 0.1;
     }
 
-    // Check if the string contains any characters other than numbers.
-    for (int i = 0; i < strlen(string); i++)
-    {
-        if (!isdigit(string[i]))
-        {
-            return 0;
-        }
-    }
+    totalBayar = jumlahTransaksi - discount;
 
-    // Try to convert the string to an int.
-    int int_value;
-    if (sscanf(string, "%d", &int_value) != 1)
+    clearScreen();
+    printf("==============================\n");
+    printf("Jumlah transaksi adalah: %.2lf \n", jumlahTransaksi);
+    printf("Jumlah kupon undian yang diterima: %d\n", jumlahCoupon);
+    if (discount > 0)
     {
-        return 0;
+        printf("Mendapat diskon sebesar: %.2lf\n", discount);
     }
-
-    // Return the int value.
-    return int_value;
+    printf("Total yang harus dibayar: %.2lf\n", totalBayar);
+    printf("=============================\n");
 }
 
-bool continueOrNo(bool *lanjut)
+void menu(bool *lanjut)
 {
-    char input;
-    printf("Apakah ingin lanjut input? (y/n): \n");
-    scanf(" %c", &input); // Perhatikan spasi sebelum %c untuk menghindari karakter newline
+    int choice;
 
-    if (input == 'y' || input == 'Y')
+    printf("Pilih menu berikut: \n");
+    printf("1. Menghitung belanjaan\n");
+    printf("2. Exit\n");
+    printf("Pilih 1 atau 2: ");
+    scanf("%d", &choice);
+    clearScreen();
+    switch (choice)
     {
+    case 1:
+        perhitunganTransaksi();
         *lanjut = true;
-    }
-    else
-    {
+        break;
+    case 2:
+        printf("Terima kasih. Sampai jumpa!\n");
         *lanjut = false;
+        break;
+    default:
+        printf("Input Tidak valid! \n");
+        *lanjut = true;
+        break;
     }
 }
 
 int main()
 {
-    int jumlahCoupon;
-    char input[255];
-    // bool isValid;
-    bool lanjut = true;
-
-    printf("==============================\n");
-    printf("            Group 6           \n");
-    printf("==============================\n");
-    printf("  Program supermarket week 7  \n");
-    printf("==============================\n");
-
+    bool lanjut;
     do
     {
-            int* jumlahTransaksi;
-            printf("%d", jumlahTransaksi);
-
-            printf("Masukkan total pembelian: ");
-            fgets(input, sizeof(input), stdin);
-
-            // Remove the newline character from the end of the string.
-            input[strlen(input) - 1] = '\0';
-
-            jumlahTransaksi = strtoint(input);
-
-            continueOrNo(&lanjut);
-
+        printf("==============================\n");
+        printf("            Group 6           \n");
+        printf("==============================\n");
+        printf("  Program supermarket week 7  \n");
+        printf("==============================\n");
+        menu(&lanjut);
     } while (lanjut);
-
-    // do
-    // {
-    //     bool isValid = true;
-
-    //     printf("Masukkan total pembelian: ");
-    //     fgets(input, sizeof(input), stdin);
-
-    //     // Remove the newline character from the end of the string.
-    //     input[strlen(input) - 1] = '\0';
-
-    //     jumlahTransaksi = strtodoub(input);
-
-    //     if (isValid == false)
-    //     {
-    //         printf("Tidak valid\n");
-    //         continueOrNo(&lanjut, &is);
-    //     }
-
-    //     // jumlahTransaksi = strtodoub(input);
-
-    // } while (lanjut);
-
-    // while (lanjut) {
-    //     printf("Masukkan total pembelian: ");
-    //     fgets(input, sizeof(input), stdin);
-
-    //     // Remove the newline character from the end of the string.
-    //     input[strlen(input) - 1] = '\0';
-
-    //     jumlahTransaksi = strtodoub(input);
-
-    //     if (jumlahTransaksi == 0) {
-    //         printf("Tidak valid");
-
-    //         continueOrNo(&lanjut);
-    //     } 
-    // }
 
     return 0;
 }
