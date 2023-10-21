@@ -1,1 +1,4 @@
-ttes1 tes1 tes1 30000.00
+bk01    | ini judul 1   | sosial    | 300000.00 
+bk03    | ini judul 3   | sosial    | 300000.00 
+bk04    | ini judul 4   | sosial    | 300000.00 
+bk06    | ini judul 6   | sosial    | 300000.00 

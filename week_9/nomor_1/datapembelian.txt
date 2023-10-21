@@ -1,0 +1,1 @@
+bk01     | ini judul 1    | sosial     | 300000.00 
