@@ -115,6 +115,7 @@ void getBuku()
     }
 
     char line[256];
+    sequence = 0;
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
@@ -141,6 +142,7 @@ void getHistory()
     }
 
     char line[256];
+    sequence2 = 0;
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
@@ -229,7 +231,6 @@ void transaction()
     fgets(input, sizeof(input), stdin);
     input[strlen(input) - 1] = '\0';
     nomor = strtoint(input);
-    printf("%d", nomor);
     if (nomor >= 1 && nomor <= sequence)
     {
         fprintf(file, "%s | %s | %s | %.2lf\n", arrayBuku[nomor - 1].kode_buku, arrayBuku[nomor - 1].nama_buku, arrayBuku[nomor - 1].jenis_buku, arrayBuku[nomor - 1].harga);
@@ -253,6 +254,8 @@ void viewHistory()
     printf("===============================================================\n");
     printf("Data pembelian buku di datapembelian.txt:\n");
     printf("\n");
+    printf("===============================================================\n");
+    printf("%-20s| %-25s| %-20s| %-20s\n", "Kode Buku", "Judul Buku", "Jenis Buku", "Harga");
     char line[256];
     BUKU book;
 
@@ -273,7 +276,6 @@ void viewHistory()
 
 void ViewBuku()
 {
-    getBuku();
     FILE *file = fopen("databuku.txt", "r");
     if (file == NULL)
     {
@@ -312,7 +314,7 @@ void deleteHistory()
 
     getHistory();
 
-    printf("Masukkan nomor buku yang ingin dihapus [1 - %d]", sequence2);
+    printf("Masukkan nomor buku yang ingin dihapus [1 - %d] : ", sequence2);
     fgets(input, sizeof(input), stdin);
     input[strlen(input) - 1] = '\0';
     nomor = strtoint(input);
@@ -339,12 +341,12 @@ void deleteHistory()
             fprintf(file, "%s | %s | %s | %.2lf \n", arrayBuku[i].kode_buku, arrayBuku[i].nama_buku, arrayBuku[i].jenis_buku, arrayBuku[i].harga);
         }
 
-        printf("Data succes delete");
+        printf("Data succes delete\n");
         fclose(file);
     }
     else
     {
-        printf("Index tidak valid");
+        printf("Index tidak valid\n");
     }
     printf("\n");
 }
